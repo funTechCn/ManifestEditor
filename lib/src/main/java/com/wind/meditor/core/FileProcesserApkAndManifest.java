@@ -24,7 +24,7 @@ public class FileProcesserApkAndManifest {
     public static void processApkFile(String srcApkPath, String dstApkPath, String manifestFilePath) {
         FileOutputStream outputStream = null;
         ZipOutputStream zipOutputStream = null;
-        FileInputStream manifestFileInputStream =null;
+        InputStream manifestFileInputStream =null;
         ZipFile zipFile = null;
 
         long time = System.currentTimeMillis();
