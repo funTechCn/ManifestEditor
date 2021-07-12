@@ -3,6 +3,7 @@ package com.wind.meditor;
 import com.wind.meditor.base.BaseCommand;
 import com.wind.meditor.core.ApkSigner;
 import com.wind.meditor.core.FileProcesser;
+import com.wind.meditor.core.FileProcesserApkAndManifest;
 import com.wind.meditor.property.AttributeItem;
 import com.wind.meditor.property.ModificationProperty;
 import com.wind.meditor.utils.FileTypeUtils;
@@ -47,6 +48,10 @@ public class ManifestEditorMain extends BaseCommand {
     @Opt(opt = "d", longOpt = "debuggable", description = "set 1 to make the app debuggable = true, " +
             "set 0 to make the app debuggable = false", argName = "0 or 1")
     private int debuggable = -1;
+
+    @Opt(opt = "m", longOpt = "manifestFile", description = "Use file as manifestFile",argName = "manifestFile-path")
+    private String manifestFile;
+
 
     @Opt(opt = "an", longOpt = "applicationName", description = "set the app entry application name",
             argName = "new-application-name")
@@ -149,7 +154,17 @@ public class ManifestEditorMain extends BaseCommand {
             FileProcesser.processManifestFile(srcFilePath, output, modificationProperty);
         } else if (isApkFile) {
             Log.i("Start to process apk.");
-            FileProcesser.processApkFile(srcFilePath, output, modificationProperty);
+            boolean isOutFileManifestFile = FileTypeUtils.isAndroidManifestFile(output);
+            if(isOutFileManifestFile){//
+                FileProcesserApkAndManifest.processApkFileOutManifest(srcFilePath, output);
+                return;
+            }
+
+            if(manifestFile!=null && !Utils.isNullOrEmpty(manifestFile)){//process apk and manifest
+                FileProcesserApkAndManifest.processApkFile(srcFilePath, output, manifestFile);
+            }else {//process apk only
+                FileProcesser.processApkFile(srcFilePath, output, modificationProperty);
+            }
 
             if (needSignApk) {
                 Log.i("Start to sign the apk.");

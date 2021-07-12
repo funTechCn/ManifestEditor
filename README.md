@@ -1,4 +1,13 @@
 #  **ManifestEditor**
+
+此项目fork自https://github.com/WindySha/ManifestEditor，在原项目的基础了增加了导出原始AndroidManifest.xml和指定AndroidManifest.xml进行打包功能。
+ -m,--manifestFile <manifestFile-path>Use file as manifestFile
+用来配合https://github.com/hzw1199/xml2axml工具进行手工修改后打包。
+
+
+
+以下为原项目README
+
 This is a tool used to modify Android Manifest binary file.  
 此工具用于修改AndroidManifest二进制文件。比如，更改Manifest文件中的app包名，版本号，更改或新增app入口Application的类名，更改或新增debuggable的属性，增加usesPermission标签，增加meta-data标签等。
 同时，为了更方便使用，提供了直接修改Apk包中的Manifest文件，并对修改后的Apk进行签名的功能。
