@@ -1,9 +1,24 @@
 #  **ManifestEditor**
 
-此项目fork自https://github.com/WindySha/ManifestEditor，在原项目的基础了增加了导出原始AndroidManifest.xml和指定AndroidManifest.xml进行打包功能。
+此项目fork自(https://github.com/WindySha/ManifestEditor)，在原项目的基础了增加了导出原始AndroidManifest.xml和指定AndroidManifest.xml进行打包功能。
  -m,--manifestFile <manifestFile-path>Use file as manifestFile
-用来配合https://github.com/hzw1199/xml2axml工具进行手工修改后打包。
+用来配合(https://github.com/hzw1199/xml2axml)or(https://github.com/Ratul-Learner/Xml2Axml)工具进行手工修改后打包。
 
+```
+@rem getManifest.bat c:\Users\Administrator\Downloads\bili_6.32.0.apk d:\bili.xml d:\bili-txt.xml
+java -jar ManifestEditor-1.0.2.jar  %1 -o %2 -f
+@rem java -jar xml2axml-1.1.0-SNAPSHOT.jar d %2  %3
+java -jar AxmlXml-CLI.jar -d %2  %3
+notepad %3
+```
+
+```
+@rem packAndSign.bat c:\Users\Administrator\Downloads\bili_6.32.0.apk d:\bili-txt.xml d:\bili.apk
+@rem java -jar xml2axml-1.1.0-SNAPSHOT.jar e %2 %2_new.xml
+
+java -jar AxmlXml-CLI.jar -e  %2 %2_new.xml
+java -jar ManifestEditor-1.0.2.jar  %1  -m %2_new.xml -o %3 -s -f
+```
 
 
 以下为原项目README
